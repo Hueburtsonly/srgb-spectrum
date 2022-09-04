@@ -11,6 +11,10 @@ I also coded up the more common approach of just finding the nearest sRGB approx
 
 I recommend [Rendering Spectra](https://aty.sdsu.edu/explain/optics/rendering.html) to follow a more in-depth investigation of this approach.
 
+## Code
+
+[spectrum.m](/spectrum.m) is the main code to run, it generates the two images shown above.  This is MATLAB code, but can also be run for free using GNU Octave (Octave doesn't have the `lin2rgb` or `rgb2lin` functions, so I've included my own implementations here.
+
 ## Sources
 
 CIE responsivity and D65 illuminant data from [http://www.cvrl.org/](http://www.cvrl.org/)
