@@ -51,8 +51,8 @@ sRGB_XYZ = sRGB_XYZ .* repmat(correction, [1 3]);
 clear D65_XYZ D65_xyz correction
 
 
-%spectrum_raw = diag(D65 / max(D65));
-spectrum_raw = eye(1000);
+%spectrum_raw = diag(D65 / max(D65));  % Use this for D65 illuminant split through prism
+spectrum_raw = eye(1000);  % Equal power in every wavelength
 spectrum_raw = spectrum_raw(:, 300 : 780);
 spectrum_raw = imresize(spectrum_raw, [1000 1920]);
 
@@ -85,7 +85,6 @@ image_spectrum = image_spectrum .* ((background + 1)/2) + -min(min(sRGB_spectrum
 image_spectrum = image_spectrum ;
 
 % Apply sRGB transfer function
-%sRGB_spectrum = image_spectrum .^ (1/2.2);
 image_spectrum = lin2rgb_octave(image_spectrum);
 
 
@@ -99,7 +98,7 @@ imwrite(image_spectrum, "out1.png");
 %
 
 app2_sRGB_spectrum = sRGB_spectrum - repmat(min(sRGB_spectrum), [3 1]);
-app2_sRGB_spectrum = app2_sRGB_spectrum ./ repmat(max(0.6,max(app2_sRGB_spectrum)), [3 1]);
+app2_sRGB_spectrum = app2_sRGB_spectrum ./ repmat(max(0.7, max(app2_sRGB_spectrum)), [3 1]);
 image_spectrum = repmat(reshape(app2_sRGB_spectrum', [1, size(app2_sRGB_spectrum, 2), 3]), [1080 1 1]);
 image_spectrum = lin2rgb_octave(image_spectrum .* background);
 
